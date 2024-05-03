@@ -44,4 +44,46 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //TODO:CRUD
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    public static function userCreate(array $userData): void
+    {
+        $user = new User($userData);
+        $user->save();
+    }
+
+    /**
+     * @param int $userId
+     * @return User
+     */
+    public static function userGetById(int $userId): User
+    {
+        return self::findOrFail($userId);
+    }
+
+    /**
+     * @param int $userId
+     * @param array $userData
+     * @return void
+     */
+    public static function userUpdate(int $userId, array $userData): void
+    {
+        $user = self::findOrFail($userId);
+        $user->update($userData);
+    }
+
+    /**
+     * @param int $userId
+     * @return void
+     */
+    public static function userDelete(int $userId): void
+    {
+        $user = User::findOrFail($userId);
+        $user->delete();
+    }
 }
